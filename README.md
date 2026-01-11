@@ -1,0 +1,2 @@
+# scopes-intake
+scopes-intake is a small FastAPI service that accepts inbound leads, scores them with simple rules, routes them to Sales/Support/Partnerships, and provides a lightweight admin view.
