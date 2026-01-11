@@ -1,4 +1,4 @@
-﻿# Lead Intake + Auto-Qualification API (CRM mini)
+## scopes-intake
 
 A small FastAPI service that accepts inbound leads, scores them with simple rules, routes them to the right team, and exposes a lightweight admin view.
 
@@ -76,3 +76,4 @@ Edit `config/scoring_rules.json` to adjust weights and routing thresholds.
 
 ## Postman
 Import `postman/lead-intake.postman_collection.json` to try the endpoints quickly.
+
