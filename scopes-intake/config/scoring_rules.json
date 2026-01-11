@@ -1,0 +1,34 @@
+{
+  "industry_weights": {
+    "software": 30,
+    "finance": 25,
+    "healthcare": 20,
+    "education": 10,
+    "default": 5
+  },
+  "company_size_weights": {
+    "enterprise": 40,
+    "mid-market": 25,
+    "smb": 10,
+    "startup": 15,
+    "default": 5
+  },
+  "email_domain_weights": {
+    "gmail.com": -10,
+    "yahoo.com": -10,
+    "outlook.com": -5,
+    "default": 5
+  },
+  "region_weights": {
+    "na": 20,
+    "emea": 15,
+    "apac": 10,
+    "latam": 8,
+    "default": 5
+  },
+  "routes": [
+    {"min_score": 80, "team": "Partnerships"},
+    {"min_score": 50, "team": "Sales"},
+    {"min_score": 0, "team": "Support"}
+  ]
+}

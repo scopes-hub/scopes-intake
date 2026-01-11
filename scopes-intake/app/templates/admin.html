@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lead Intake Admin</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; color: #1a1a1a; }
+    header { display: flex; align-items: center; justify-content: space-between; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #f3f3f3; }
+    .status { text-transform: capitalize; }
+    .filter { margin-top: 12px; }
+    .muted { color: #666; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lead Inbox</h1>
+    <div class="muted">Status: {{ status if status else "all" }}</div>
+  </header>
+
+  <form class="filter" method="get" action="/admin/leads">
+    <label for="status">Filter:</label>
+    <select id="status" name="status">
+      <option value="" {% if not status %}selected{% endif %}>All</option>
+      <option value="new" {% if status == "new" %}selected{% endif %}>New</option>
+      <option value="contacted" {% if status == "contacted" %}selected{% endif %}>Contacted</option>
+      <option value="closed" {% if status == "closed" %}selected{% endif %}>Closed</option>
+    </select>
+    <button type="submit">Apply</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Company</th>
+        <th>Industry</th>
+        <th>Size</th>
+        <th>Region</th>
+        <th>Score</th>
+        <th>Route</th>
+        <th>Status</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lead in leads %}
+      <tr>
+        <td>{{ lead.id }}</td>
+        <td>{{ lead.name }}</td>
+        <td>{{ lead.email }}</td>
+        <td>{{ lead.company }}</td>
+        <td>{{ lead.industry }}</td>
+        <td>{{ lead.company_size }}</td>
+        <td>{{ lead.region }}</td>
+        <td>{{ lead.score }}</td>
+        <td>{{ lead.route }}</td>
+        <td class="status">{{ lead.status }}</td>
+        <td>{{ lead.created_at }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="11" class="muted">No leads yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
