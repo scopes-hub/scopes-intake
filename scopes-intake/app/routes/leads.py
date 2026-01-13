@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -89,6 +89,34 @@ def admin_leads(
     if status:
         query = query.where(models.Lead.status == status)
     leads = session.execute(query).scalars().all()
+
+    total_count = session.execute(select(func.count()).select_from(models.Lead)).scalar_one()
+    new_count = session.execute(
+        select(func.count()).select_from(models.Lead).where(models.Lead.status == "new")
+    ).scalar_one()
+    contacted_count = session.execute(
+        select(func.count()).select_from(models.Lead).where(models.Lead.status == "contacted")
+    ).scalar_one()
+    closed_count = session.execute(
+        select(func.count()).select_from(models.Lead).where(models.Lead.status == "closed")
+    ).scalar_one()
+
+    recent_logs = session.execute(
+        select(models.ApiRequestLog)
+        .order_by(models.ApiRequestLog.created_at.desc())
+        .limit(8)
+    ).scalars().all()
+
     return templates.TemplateResponse(
-        "admin.html", {"request": request, "leads": leads, "status": status or ""}
+        "admin.html",
+        {
+            "request": request,
+            "leads": leads,
+            "status": status or "",
+            "total_count": total_count,
+            "new_count": new_count,
+            "contacted_count": contacted_count,
+            "closed_count": closed_count,
+            "recent_logs": recent_logs,
+        },
     )
