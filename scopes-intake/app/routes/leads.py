@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from app import models
 from app.db import get_session
-from app.schemas import LeadCreate, LeadOut, LeadStatusUpdate
+from app.schemas import LeadCreate, LeadOut, LeadStatus, LeadStatusUpdate
 from app.scoring import load_rules, score_lead
 
 router = APIRouter()
@@ -61,7 +61,7 @@ def create_lead(
 
 
 @router.get("/leads", response_model=list[LeadOut])
-def list_leads(status: Optional[str] = None, session: Session = Depends(get_session)):
+def list_leads(status: Optional[LeadStatus] = None, session: Session = Depends(get_session)):
     query = select(models.Lead).order_by(models.Lead.created_at.desc())
     if status:
         query = query.where(models.Lead.status == status)
@@ -83,7 +83,7 @@ def update_status(
 
 @router.get("/admin/leads", response_class=HTMLResponse)
 def admin_leads(
-    request: Request, status: Optional[str] = None, session: Session = Depends(get_session)
+    request: Request, status: Optional[LeadStatus] = None, session: Session = Depends(get_session)
 ):
     query = select(models.Lead).order_by(models.Lead.created_at.desc())
     if status:
