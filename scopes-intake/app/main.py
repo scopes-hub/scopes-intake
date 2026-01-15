@@ -14,7 +14,6 @@ async def lifespan(app: FastAPI):
     yield
 
 
-#log requests
 app = FastAPI(title="Lead Intake API", version="0.1.0", lifespan=lifespan)
 
 
