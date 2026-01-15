@@ -3,6 +3,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
+LeadStatus = Literal["new", "contacted", "closed"]
+
 
 class LeadCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=200)
@@ -14,7 +16,7 @@ class LeadCreate(BaseModel):
 
 
 class LeadStatusUpdate(BaseModel):
-    status: Literal["new", "contacted", "closed"]
+    status: LeadStatus
 
 
 class LeadOut(BaseModel):
@@ -22,7 +24,7 @@ class LeadOut(BaseModel):
 
     id: int
     created_at: datetime
-    status: Literal["new", "contacted", "closed"]
+    status: LeadStatus
     name: str
     email: EmailStr
     company: str
