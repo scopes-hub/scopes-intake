@@ -1,15 +1,11 @@
-<!-- temp gui interface update later when necessary -->
-
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
-  <!-- check to see if gui matches with panel-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lead Intake Admin</title>
-  <!-- doublre check light mode -->
   <style>
-    :root { 
+    :root {
       --app-bg: #f0f0f1;
       --panel-bg: #ffffff;
       --panel-border: #dcdcde;
@@ -17,7 +13,7 @@
       --text: #1d2327;
       --muted: #646970;
       --primary: #2271b1;
-      --primary-strong: #135e96;
+      --primary-strong: #135e96; 
       --success: #23875d;
       --warning: #b45309;
       --danger: #b32d2e;
@@ -34,6 +30,7 @@
       --glow-1: rgba(34, 113, 177, 0.15);
       --glow-2: rgba(205, 133, 63, 0.12);
     }
+
     html[data-theme="dark"] {
       --app-bg: #0e1216;
       --panel-bg: #151b22;
@@ -64,8 +61,6 @@
       box-sizing: border-box;
     }
 
-
-    
     body {
       margin: 0;
       font-family: "Gill Sans", "Gill Sans MT", "Candara", "Trebuchet MS", sans-serif;
@@ -476,7 +471,6 @@
     }
   </style>
 </head>
-  <!-- update v later when adding features-->
 <body>
   <div class="app">
     <aside class="sidebar">
@@ -624,13 +618,13 @@
       </section>
     </main>
   </div>
-<!-- prefer dm-->
+
   <script>
     const root = document.documentElement;
     const toggle = document.querySelector("[data-theme-toggle]");
     const storedTheme = localStorage.getItem("admin-theme");
     const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme = storedTheme || (prefersDark ? "dark" : "light"); 
+    const initialTheme = storedTheme || (prefersDark ? "dark" : "light");
 
     root.dataset.theme = initialTheme;
 
